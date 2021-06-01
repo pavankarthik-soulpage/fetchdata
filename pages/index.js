@@ -17,7 +17,7 @@ export async function getStaticProps() {
 }
 const a = "/evil.jpg";
 export default function ApiData({ lists }) {
-  console.log(process.env.LOGO_SELECT);
+  console.log(process.env);
   return (
     <div className={styles.container}>
       <Head>
@@ -29,9 +29,7 @@ export default function ApiData({ lists }) {
         <h1 className={styles.title}>List of Repositories</h1>
         <br></br>
         <img
-          src={
-            process.env.LOGO_SELECT === 1 ? process.env.LOGO2 : process.env.LOGO
-          }
+          src={process.env.CLIENT === "CLIENT1" ? "/evil.jpg" : "/Photo.JPG"}
           width="200"
           height="190"
         ></img>
