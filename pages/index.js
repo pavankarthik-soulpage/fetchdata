@@ -7,6 +7,7 @@
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import Link from "next/link";
+
 export async function getStaticProps() {
   const source = await fetch("https://api.github.com/repositories");
   const lists = await source.json();
@@ -14,7 +15,9 @@ export async function getStaticProps() {
     props: { lists },
   };
 }
+const a = "/evil.jpg";
 export default function ApiData({ lists }) {
+  console.log(process.env.LOGO_SELECT);
   return (
     <div className={styles.container}>
       <Head>
@@ -25,9 +28,16 @@ export default function ApiData({ lists }) {
       <main className={styles.main}>
         <h1 className={styles.title}>List of Repositories</h1>
         <br></br>
+        <img
+          src={
+            process.env.LOGO_SELECT === 1 ? process.env.LOGO2 : process.env.LOGO
+          }
+          width="200"
+          height="190"
+        ></img>
         <div className={styles.grid}>
-          {lists.map((item) => (
-            <ol className={styles.card}>
+          {lists.map((item, index) => (
+            <ol key={index} className={styles.card}>
               <img src={item.owner.avatar_url}></img>
               <br></br>
               <b>Id</b> - {item.id}
@@ -36,7 +46,7 @@ export default function ApiData({ lists }) {
               Description - {item.description}
               <br></br>
               <br></br>
-              Contributors -{" "}
+              Contributors -
               <a href={item.contributors_url}>{item.contributors_url}</a>
             </ol>
           ))}
